@@ -71,10 +71,32 @@ a {
   color: #5f471f;
   background: #fff0d7;
 }
+
+.top-home {
+  position: fixed;
+  top: max(18px, env(safe-area-inset-top));
+  left: max(18px, env(safe-area-inset-left));
+  z-index: 10;
+  display: inline-flex;
+  align-items: center;
+  min-height: 46px;
+  padding: 0 18px;
+  border: 1px solid rgba(255,255,255,.35);
+  border-radius: 999px;
+  color: white;
+  background: rgba(8,35,31,.38);
+  font-weight: 900;
+  text-decoration: none;
+  backdrop-filter: blur(9px);
+}
+.top-home:hover {
+  background: rgba(8,35,31,.58);
+}
+
 </style>
 </head>
 <body>
-  <main class="wrap">
+  <a class="top-home" href="index.htm">← 6학년 전체로 돌아가기</a><main class="wrap">
     <span class="badge">6학년 2반</span>
     <h1>작품 자료 준비 중</h1>
     <p>2반 CSV 또는 노션 자료를 연결하면 이 페이지에 자동으로 작품이 표시됩니다.</p>
