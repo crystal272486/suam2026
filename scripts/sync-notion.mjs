@@ -2,39 +2,55 @@ import fs from "node:fs/promises";
 import path from "node:path";
 
 const NOTION_TOKEN = (process.env.NOTION_TOKEN || "").trim();
-const NOTION_DATABASE_ID = normalizeId(process.env.NOTION_DATABASE_ID || "");
-const NOTION_DATA_SOURCE_ID = normalizeId(process.env.NOTION_DATA_SOURCE_ID || "");
 const NOTION_VERSION = "2026-03-11";
+
+const CLASS_DATABASES = [
+  { classNo: 1, databaseId: normalizeId(process.env.NOTION_DATABASE_ID || "") },
+  { classNo: 2, databaseId: normalizeId(process.env.NOTION_DATABASE_ID_CLASS2 || "") },
+  { classNo: 3, databaseId: normalizeId(process.env.NOTION_DATABASE_ID_CLASS3 || "") },
+  { classNo: 4, databaseId: normalizeId(process.env.NOTION_DATABASE_ID_CLASS4 || "") }
+];
 
 if (!NOTION_TOKEN) {
   throw new Error("GitHub Secret NOTION_TOKEN이 없습니다.");
 }
-if (!NOTION_DATABASE_ID && !NOTION_DATA_SOURCE_ID) {
-  throw new Error("GitHub Secret NOTION_DATABASE_ID 또는 NOTION_DATA_SOURCE_ID가 없습니다.");
+
+for (const item of CLASS_DATABASES) {
+  if (!item.databaseId) {
+    throw new Error(`${item.classNo}반 데이터베이스 ID Secret이 없습니다.`);
+  }
 }
 
-const dataSourceId = await resolveDataSourceId();
-console.log(`사용할 Notion data source: ${dataSourceId}`);
+for (const item of CLASS_DATABASES) {
+  await syncClass(item.classNo, item.databaseId);
+}
 
-const pages = await queryAllPages(dataSourceId);
-const works = pages
-  .map((page, index) => pageToWork(page, index))
-  .sort(sortWorks);
+console.log("1반부터 4반까지 Notion 동기화가 모두 완료되었습니다.");
 
-const outputPath = path.join(process.cwd(), "data", "class1.json");
-await fs.mkdir(path.dirname(outputPath), { recursive: true });
-await fs.writeFile(
-  outputPath,
-  JSON.stringify(works, null, 2) + "\n",
-  "utf8"
-);
+async function syncClass(classNo, databaseId) {
+  console.log(`\n[${classNo}반] 동기화를 시작합니다.`);
 
-console.log(`동기화 완료: ${works.length}건 → ${outputPath}`);
+  const dataSourceId = await resolveDataSourceId(databaseId);
+  console.log(`[${classNo}반] data source: ${dataSourceId}`);
 
-async function resolveDataSourceId() {
-  if (NOTION_DATA_SOURCE_ID) return NOTION_DATA_SOURCE_ID;
+  const pages = await queryAllPages(dataSourceId);
+  const works = pages
+    .map((page, index) => pageToWork(page, index, classNo))
+    .sort(sortWorks);
 
-  const database = await notionRequest(`/v1/databases/${NOTION_DATABASE_ID}`, {
+  const outputPath = path.join(process.cwd(), "data", `class${classNo}.json`);
+  await fs.mkdir(path.dirname(outputPath), { recursive: true });
+  await fs.writeFile(
+    outputPath,
+    JSON.stringify(works, null, 2) + "\n",
+    "utf8"
+  );
+
+  console.log(`[${classNo}반] ${works.length}건 저장 완료 → ${outputPath}`);
+}
+
+async function resolveDataSourceId(databaseId) {
+  const database = await notionRequest(`/v1/databases/${databaseId}`, {
     method: "GET"
   });
 
@@ -45,17 +61,15 @@ async function resolveDataSourceId() {
   const first = sources[0];
   if (first?.id) return normalizeId(first.id);
 
-  // 일부 단일 데이터 원본은 데이터베이스 ID와 데이터 원본 ID가 같을 수 있어 확인합니다.
   try {
-    await notionRequest(`/v1/data_sources/${NOTION_DATABASE_ID}`, {
+    await notionRequest(`/v1/data_sources/${databaseId}`, {
       method: "GET"
     });
-    return NOTION_DATABASE_ID;
+    return databaseId;
   } catch {
     throw new Error(
-      "데이터 원본 ID를 자동으로 찾지 못했습니다. " +
-      "Notion 데이터베이스를 연결에 공유했는지 확인하거나 " +
-      "GitHub Secret NOTION_DATA_SOURCE_ID를 추가해 주세요."
+      `데이터 원본 ID를 찾지 못했습니다. 데이터베이스 ${databaseId}가 ` +
+      "수암초 작품 만들기 연동에 공유되어 있는지 확인해 주세요."
     );
   }
 }
@@ -111,18 +125,18 @@ async function notionRequest(endpoint, options = {}) {
   return payload;
 }
 
-function pageToWork(page, index) {
+function pageToWork(page, index, classNo) {
   const item = {};
 
   for (const [name, property] of Object.entries(page.properties || {})) {
     item[name] = propertyToValue(property);
   }
 
-  item._id = page.id || `notion-${index + 1}`;
+  item._id = page.id || `notion-${classNo}-${index + 1}`;
   item._notionUrl = page.public_url || page.url || "";
   item._lastEditedTime = page.last_edited_time || "";
   item.학년 = item.학년 || "6학년";
-  item.반 = item.반 || "1반";
+  item.반 = item.반 || `${classNo}반`;
 
   const match = String(item.조 || "").match(/\d+/);
   item._groupNumber = match ? Number(match[0]) : 999;
