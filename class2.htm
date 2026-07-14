@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>수암초 6학년 2반 작품 허브</title>
+<style>
+:root {
+  font-family: "Malgun Gothic","Apple SD Gothic Neo",sans-serif;
+  color: #172033;
+  background: #f6f4ee;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  background:
+    radial-gradient(circle at 80% 10%, rgba(255,182,87,.25), transparent 22%),
+    linear-gradient(135deg,#123d38,#2e7c6f);
+}
+.wrap {
+  width: min(720px, calc(100% - 32px));
+  padding: 48px 28px;
+  border-radius: 28px;
+  text-align: center;
+  background: white;
+  box-shadow: 0 25px 70px rgba(0,0,0,.22);
+}
+.badge {
+  display: inline-flex;
+  padding: 8px 14px;
+  border-radius: 999px;
+  color: white;
+  background: #215c52;
+  font-weight: 800;
+}
+h1 {
+  margin: 24px 0 12px;
+  font-size: clamp(2.2rem, 8vw, 4.5rem);
+  line-height: 1.05;
+}
+p {
+  margin: 0;
+  color: #667085;
+  font-size: 1.05rem;
+}
+.actions {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-top: 28px;
+}
+a {
+  display: inline-flex;
+  min-height: 48px;
+  padding: 0 20px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  font-weight: 800;
+  text-decoration: none;
+}
+.home {
+  color: white;
+  background: #215c52;
+}
+.class1 {
+  color: #5f471f;
+  background: #fff0d7;
+}
+
+.top-home {
+  position: fixed;
+  top: max(18px, env(safe-area-inset-top));
+  left: max(18px, env(safe-area-inset-left));
+  z-index: 10;
+  display: inline-flex;
+  align-items: center;
+  min-height: 46px;
+  padding: 0 18px;
+  border: 1px solid rgba(255,255,255,.35);
+  border-radius: 999px;
+  color: white;
+  background: rgba(8,35,31,.38);
+  font-weight: 900;
+  text-decoration: none;
+  backdrop-filter: blur(9px);
+}
+.top-home:hover {
+  background: rgba(8,35,31,.58);
+}
+
+</style>
+</head>
+<body>
+  <a class="top-home" href="index.htm">← 6학년 전체로 돌아가기</a><main class="wrap">
+    <span class="badge">6학년 2반</span>
+    <h1>작품 자료 준비 중</h1>
+    <p>2반 CSV 또는 노션 자료를 연결하면 이 페이지에 자동으로 작품이 표시됩니다.</p>
+    <div class="actions">
+      <a class="home" href="index.htm">전체 반으로 돌아가기</a>
+      <a class="class1" href="class1.htm">1반 작품 보기</a>
+    </div>
+  </main>
+</body>
+</html>
