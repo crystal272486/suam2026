@@ -1200,19 +1200,30 @@ async function loadWorks(forceRefresh) {
   setLoading(true);
 
   try {
-    const response = await fetch(`/api/works${forceRefresh ? "?refresh=1" : ""}`, {
+    // GitHub Actions가 노션에서 만들어 둔 최신 JSON을 읽습니다.
+    // 상대 경로를 사용하므로 /suam2026/ 같은 프로젝트 Pages에서도 정상 동작합니다.
+    const cacheBuster = forceRefresh ? `?t=${Date.now()}` : "";
+    const response = await fetch(`data/class1.json${cacheBuster}`, {
       cache: "no-store"
     });
+
     if (!response.ok) throw new Error(`HTTP ${response.status}`);
 
     const payload = await response.json();
-    state.works = Array.isArray(payload.works) ? payload.works : [];
-    state.source = payload.source || "csv";
-    state.warning = payload.warning || "";
-  } catch {
+    state.works = Array.isArray(payload)
+      ? payload
+      : (Array.isArray(payload.works) ? payload.works : []);
+
+    state.source = "notion";
+    state.warning = "";
+  } catch (error) {
+    // 자동 동기화 전이거나 일시적인 오류가 생기면 기존 CSV 자료로 안전하게 표시합니다.
     state.works = Array.isArray(window.SAMPLE_WORKS) ? window.SAMPLE_WORKS : [];
     state.source = "csv";
-    state.warning = "현재는 업로드된 CSV 미리보기 자료를 표시합니다. 서버에서 실행하면 노션과 자동 연동됩니다.";
+    state.warning =
+      "노션 동기화 파일을 아직 읽지 못해 기존 CSV 자료를 표시합니다. " +
+      "GitHub Actions의 Notion Sync 실행 결과를 확인해 주세요.";
+    console.error("Notion JSON load error:", error);
   }
 
   applyUrlState();
