@@ -1008,7 +1008,7 @@ function createDetail(work) {
   return `
     <div class="detail-topnav">
       <a href="index.htm">← 6학년 전체로 돌아가기</a>
-      <span class="detail-topnav__class">6학년 4반</span>
+      <span class="detail-topnav__class">6학년 ${escapeHtml(work.반 || "")}</span>
     </div>
 
     <div class="detail-hero">
@@ -1044,7 +1044,7 @@ function createDetail(work) {
       </div>
 
       <div class="detail-actions">
-        <button class="detail-action" type="button" onclick="closeDialog()">✕ 닫기</button>
+        <button class="detail-action" type="button" onclick="document.querySelector('#detail-dialog').close();document.body.style.overflow=''">← 목록으로 돌아가기</button>
         ${work._notionUrl ? `
           <a class="detail-action detail-action--primary" href="${escapeAttr(work._notionUrl)}" target="_blank" rel="noopener noreferrer">
             📄 노션 원본 보기 →
