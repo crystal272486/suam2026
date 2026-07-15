@@ -954,6 +954,48 @@ a { color: inherit; }
   font-size: .79rem !important;
 }
 
+
+/* 상세페이지 게임 이름 길이에 따라 자동 축소 */
+.detail-hero h2.detail-title {
+  max-width: 610px;
+  text-wrap: balance;
+  word-break: keep-all;
+  overflow-wrap: anywhere;
+}
+.detail-hero h2.detail-title--medium {
+  font-size: clamp(2.15rem, 4.2vw, 4.15rem);
+  line-height: 1.04;
+}
+.detail-hero h2.detail-title--long {
+  max-width: 660px;
+  font-size: clamp(1.75rem, 3.35vw, 3.25rem);
+  line-height: 1.08;
+  letter-spacing: -.045em;
+}
+.detail-hero h2.detail-title--xlong {
+  max-width: 700px;
+  font-size: clamp(1.45rem, 2.7vw, 2.55rem);
+  line-height: 1.12;
+  letter-spacing: -.035em;
+}
+@media (max-width: 760px) {
+  .detail-hero h2.detail-title,
+  .detail-hero h2.detail-title--medium,
+  .detail-hero h2.detail-title--long,
+  .detail-hero h2.detail-title--xlong {
+    max-width: 100%;
+  }
+  .detail-hero h2.detail-title--medium {
+    font-size: clamp(2rem, 10vw, 3.1rem);
+  }
+  .detail-hero h2.detail-title--long {
+    font-size: clamp(1.7rem, 8.2vw, 2.65rem);
+  }
+  .detail-hero h2.detail-title--xlong {
+    font-size: clamp(1.45rem, 7vw, 2.2rem);
+  }
+}
+
 </style>
 </head>
 <body>
@@ -971,7 +1013,7 @@ a { color: inherit; }
 
       <div class="hero__actions">
         <a class="button button--primary" href="#work-list">작품 둘러보기</a>
-        <button class="button button--ghost" id="refresh-button" type="button">현재 자료 다시 불러오기</button>
+        <button class="button button--ghost" id="refresh-button" type="button">화면 새로고침</button>
       </div>
 
       <div class="status-card" aria-live="polite">
@@ -1911,7 +1953,7 @@ function formatNextSyncTime(now) {
 
 function setLoading(isLoading) {
   els.refreshButton.disabled = isLoading;
-  els.refreshButton.textContent = isLoading ? "자료 확인 중..." : "현재 자료 다시 불러오기";
+  els.refreshButton.textContent = isLoading ? "새로고침 중..." : "화면 새로고침";
 }
 
 function renderAll() {
@@ -2087,6 +2129,15 @@ function closeDialog() {
   history.replaceState(null, "", `${location.pathname}${query ? `?${query}` : ""}${location.hash}`);
 }
 
+function detailTitleSizeClass(title) {
+  const length = String(title || "").replace(/\s+/g, "").length;
+
+  if (length >= 28) return "detail-title--xlong";
+  if (length >= 20) return "detail-title--long";
+  if (length >= 13) return "detail-title--medium";
+  return "";
+}
+
 function createDetail(work) {
   const steps = collectNumbered(work, "게임 방법 ", "단계", 5);
   const rules = collectNumbered(work, "규칙 ", "", 5);
@@ -2124,7 +2175,7 @@ function createDetail(work) {
           <span class="group-badge">${escapeHtml(work.조 || "조 미정")}</span>
           <span class="genre-badge">${escapeHtml(work["게임 장르"] || "장르 미정")}</span>
         </div>
-        <h2>${escapeHtml(work["게임 이름"] || "이름 없는 작품")}</h2>
+        <h2 class="detail-title ${detailTitleSizeClass(work["게임 이름"])}">${escapeHtml(work["게임 이름"] || "이름 없는 작품")}</h2>
         <p>${escapeHtml(firstValue(
           work["한 줄 소개"],
           work["배경 이야기"],
