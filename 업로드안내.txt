@@ -1,21 +1,13 @@
-﻿노션 자동동기화 상태 확인 기능 추가본입니다.
+﻿홈페이지 상태카드의 공개 정보를 최소화했습니다.
 
-변경 내용
-1. 버튼 이름을 '현재 자료 다시 불러오기'로 변경
-2. 상태카드에 마지막 노션 동기화 시간 표시
-3. 해당 반의 작품 개수 표시
-4. 다음 예약 동기화 예상 시각 표시
-5. GitHub Actions 즉시 동기화 화면 바로가기 추가
-6. 동기화 작업이 data/sync-status.json을 자동 생성하도록 수정
+표시되는 내용
+- 마지막 동기화 시점
+- 다음 자동 동기화 예상 시각
 
-중요: 웹페이지 버튼은 저장된 JSON을 다시 읽는 버튼입니다.
-노션을 즉시 다시 가져오려면 'GitHub에서 즉시 동기화'를 눌러 Run workflow를 실행합니다.
+제거된 내용
+- GitHub Actions 관련 설명
+- 노션 자동연동 안내 문구
+- 반별 작품 개수
+- 관리자용 즉시 동기화 링크
 
-업로드 대상
-- class1~class4의 html/htm 파일
-- scripts/sync-notion.mjs
-- .github/workflows/notion-sync.yml
-- data/sync-status.json
-
-기존 assets와 data/class1~class4.json은 삭제하지 마세요.
-업로드 후 Actions → Notion Sync를 한 번 수동 실행해야 실제 시간이 표시됩니다.
+class1~class4의 html/htm 파일만 GitHub 저장소 최상위에 덮어쓰기하세요.

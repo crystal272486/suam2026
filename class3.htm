@@ -934,18 +934,6 @@ a { color: inherit; }
   font-size: .78rem !important;
   color: rgba(255,255,255,.82) !important;
 }
-.sync-run-link {
-  display: inline-flex;
-  margin-top: 7px;
-  color: #ffd36c;
-  font-size: .78rem;
-  font-weight: 900;
-  text-decoration: none;
-}
-.sync-run-link:hover {
-  text-decoration: underline;
-}
-
 </style>
 </head>
 <body>
@@ -970,7 +958,7 @@ a { color: inherit; }
         <div class="status-card__dot" id="source-dot"></div>
         <div>
           <strong id="source-label">자료를 불러오는 중입니다</strong>
-          <span id="source-detail">잠시만 기다려 주세요.</span><span class="sync-time" id="sync-time">마지막 동기화 확인 중</span><span class="sync-next" id="sync-next"></span><a class="sync-run-link" href="https://github.com/crystal272486/suam2026/actions/workflows/notion-sync.yml" target="_blank" rel="noopener noreferrer">GitHub에서 즉시 동기화 ↗</a>
+          <span class="sync-time" id="sync-time">마지막 동기화: 확인 중</span><span class="sync-next" id="sync-next"></span>
         </div>
       </div>
     </div>
@@ -1174,16 +1162,11 @@ async function loadSyncStatus() {
         minute: "2-digit"
       }).format(lastSynced)}`;
 
-    const classCount = payload.counts?.class3;
-    if (Number.isFinite(classCount)) {
-      syncTime.textContent += ` · 3반 ${classCount}개 작품`;
-    }
-
     syncNext.textContent =
       `다음 자동 동기화: ${formatNextSyncTime(new Date())} 전후`;
   } catch (error) {
-    syncTime.textContent = "마지막 동기화 시간을 확인하지 못했습니다.";
-    syncNext.textContent = "Actions의 Notion Sync 실행 기록을 확인해 주세요.";
+    syncTime.textContent = "마지막 동기화: 확인 중";
+    syncNext.textContent = "다음 자동 동기화: 잠시 후 확인";
     console.error("Sync status load error:", error);
   }
 }
@@ -1225,7 +1208,7 @@ function renderSourceStatus() {
   if (state.source === "notion") {
     els.sourceDot.classList.add("is-live");
     els.sourceLabel.textContent = "Notion 자동 연동 중";
-    els.sourceDetail.textContent = "GitHub Actions가 가져온 최신 노션 자료를 표시합니다.";
+    els.sourceDetail.textContent = "노션 자료는 약 15분 간격으로 자동 반영됩니다.";
   } else {
     els.sourceDot.classList.add("is-fallback");
     els.sourceLabel.textContent = "CSV 미리보기 모드";
