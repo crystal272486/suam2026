@@ -276,14 +276,34 @@ a { color: inherit; }
   background: #ffffff;
   border-bottom: 1px solid #e7e4dc;
 }
-.detail-topnav a {
+.detail-topnav__back {
+  display: inline-flex;
+  align-items: center;
+  min-height: 40px;
+  padding: 0;
+  border: 0;
   color: #174c3d;
+  background: transparent;
+  cursor: pointer;
   font-weight: 900;
-  text-decoration: none;
+}
+.detail-topnav__back:hover {
+  color: #0b6846;
 }
 .detail-topnav__class {
-  color: #26423a;
+  display: inline-flex;
+  align-items: center;
+  min-height: 38px;
+  margin-right: 54px;
+  padding: 0 15px;
+  border: 1px solid #bad4c8;
+  border-radius: 999px;
+  color: #ffffff;
+  background: #0d6a45;
+  box-shadow: 0 5px 13px rgba(13,106,69,.18);
+  font-size: .92rem;
   font-weight: 900;
+  white-space: nowrap;
 }
 .detail-hero {
   position: relative;
@@ -573,7 +593,19 @@ a { color: inherit; }
 @media (max-width:620px){
   .detail-dialog{width:100%;max-height:100dvh;border-radius:0}
   .detail-dialog__surface{max-height:100dvh}
-  .detail-topnav{padding:14px 16px}
+  .detail-topnav{
+    gap:8px;
+    padding:12px 12px;
+  }
+  .detail-topnav__back {
+    font-size:.88rem;
+  }
+  .detail-topnav__class {
+    min-height:34px;
+    margin-right:46px;
+    padding:0 11px;
+    font-size:.82rem;
+  }
   .detail-hero{
     min-height:330px;
     padding:28px 20px 155px;
@@ -1007,7 +1039,7 @@ function createDetail(work) {
 
   return `
     <div class="detail-topnav">
-      <a href="index.htm">← 6학년 전체로 돌아가기</a>
+      <button class="detail-topnav__back" type="button" onclick="closeDialog()">← 전체 조로 돌아가기</button>
       <span class="detail-topnav__class">6학년 3반</span>
     </div>
 
