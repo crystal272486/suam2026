@@ -39,12 +39,17 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
-          git add data/class1.json data/class2.json data/class3.json data/class4.json
+          git add \
+            data/class1.json \
+            data/class2.json \
+            data/class3.json \
+            data/class4.json \
+            data/sync-status.json
 
           if git diff --cached --quiet; then
             echo "변경된 노션 자료가 없습니다."
             exit 0
           fi
 
-          git commit -m "자동 업데이트: 1반부터 4반 Notion 작품 자료"
+          git commit -m "자동 업데이트: Notion 작품 자료 및 동기화 상태"
           git push
