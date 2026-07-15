@@ -1,10 +1,10 @@
 {
-  "status": "waiting",
-  "lastSyncedAt": "2026-07-15T00:00:00.000Z",
+  "status": "success",
+  "lastSyncedAt": "2026-07-15T05:43:40.233Z",
   "counts": {
-    "class1": 0,
-    "class2": 0,
-    "class3": 0,
-    "class4": 0
+    "class1": 14,
+    "class2": 13,
+    "class3": 15,
+    "class4": 18
   }
 }
