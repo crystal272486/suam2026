@@ -21,10 +21,28 @@ for (const item of CLASS_DATABASES) {
   }
 }
 
+const counts = {};
+
 for (const item of CLASS_DATABASES) {
-  await syncClass(item.classNo, item.databaseId);
+  counts[`class${item.classNo}`] = await syncClass(item.classNo, item.databaseId);
 }
 
+const statusPath = path.join(process.cwd(), "data", "sync-status.json");
+await fs.writeFile(
+  statusPath,
+  JSON.stringify(
+    {
+      status: "success",
+      lastSyncedAt: new Date().toISOString(),
+      counts
+    },
+    null,
+    2
+  ) + "\n",
+  "utf8"
+);
+
+console.log(`동기화 상태 저장 완료 → ${statusPath}`);
 console.log("1반부터 4반까지 Notion 동기화가 모두 완료되었습니다.");
 
 async function syncClass(classNo, databaseId) {
@@ -47,6 +65,7 @@ async function syncClass(classNo, databaseId) {
   );
 
   console.log(`[${classNo}반] ${works.length}건 저장 완료 → ${outputPath}`);
+  return works.length;
 }
 
 async function resolveDataSourceId(databaseId) {

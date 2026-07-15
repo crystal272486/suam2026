@@ -1,0 +1,10 @@
+{
+  "status": "waiting",
+  "lastSyncedAt": "2026-07-15T00:00:00.000Z",
+  "counts": {
+    "class1": 0,
+    "class2": 0,
+    "class3": 0,
+    "class4": 0
+  }
+}

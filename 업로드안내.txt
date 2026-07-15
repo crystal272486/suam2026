@@ -1,8 +1,21 @@
-﻿상단 'Notion 자동 연동 중' 상태카드를 오른쪽으로 이동했습니다.
+﻿노션 자동동기화 상태 확인 기능 추가본입니다.
 
-효과
-- 버튼 아래에 있던 상태카드가 오른쪽으로 배치되어 상단 높이가 줄어듭니다.
-- 작품 목록까지 스크롤해야 하는 거리가 짧아집니다.
-- 태블릿/모바일에서는 화면 폭 때문에 기존처럼 아래쪽에 자동 배치됩니다.
+변경 내용
+1. 버튼 이름을 '현재 자료 다시 불러오기'로 변경
+2. 상태카드에 마지막 노션 동기화 시간 표시
+3. 해당 반의 작품 개수 표시
+4. 다음 예약 동기화 예상 시각 표시
+5. GitHub Actions 즉시 동기화 화면 바로가기 추가
+6. 동기화 작업이 data/sync-status.json을 자동 생성하도록 수정
 
-class1~class4의 html/htm 파일을 GitHub 저장소 최상위에 덮어쓰기하세요.
+중요: 웹페이지 버튼은 저장된 JSON을 다시 읽는 버튼입니다.
+노션을 즉시 다시 가져오려면 'GitHub에서 즉시 동기화'를 눌러 Run workflow를 실행합니다.
+
+업로드 대상
+- class1~class4의 html/htm 파일
+- scripts/sync-notion.mjs
+- .github/workflows/notion-sync.yml
+- data/sync-status.json
+
+기존 assets와 data/class1~class4.json은 삭제하지 마세요.
+업로드 후 Actions → Notion Sync를 한 번 수동 실행해야 실제 시간이 표시됩니다.
