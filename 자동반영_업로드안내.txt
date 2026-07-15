@@ -1,0 +1,24 @@
+﻿노션 자동반영 강화 최종본입니다.
+
+변경 내용
+1. GitHub Actions 예약 실행을 15분 간격에서 5분 간격으로 변경
+2. 홈페이지가 1분마다 sync-status.json을 자동 확인
+3. 새 동기화가 감지되면 작품 목록을 자동으로 다시 불러옴
+4. 사용자가 화면 새로고침 버튼을 누르지 않아도 열린 페이지가 자동 갱신됨
+5. 마지막 동기화 시각과 다음 동기화 예정 시각 표시
+6. GitHub Actions Node.js 경고 대응을 위해 checkout/setup-node v5 및 Node.js 24 적용
+
+업로드 대상
+- class1.html / class1.htm
+- class2.html / class2.htm
+- class3.html / class3.htm
+- class4.html / class4.htm
+- .github/workflows/notion-sync.yml
+- scripts/sync-notion.mjs
+- assets 폴더
+- data/sync-status.json
+
+주의
+- GitHub의 예약 실행은 서버 상황에 따라 5분보다 늦게 시작될 수 있습니다.
+- 즉시 반영이 아니라 보통 수분 내 자동 반영 방식입니다.
+- 업로드 후 Actions → Notion Sync → Run workflow를 한 번 실행해 정상 여부를 확인하세요.

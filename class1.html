@@ -1061,7 +1061,7 @@ a { color: inherit; }
       <div class="status-card" aria-live="polite">
         <div class="status-card__dot" id="source-dot"></div>
         <div>
-          <strong class="sync-time" id="sync-time">마지막 동기화: 확인 중</strong><span class="sync-next" id="sync-next">다음 자동 동기화: 확인 중</span>
+          <strong class="sync-time" id="sync-time">마지막 동기화: 확인 중</strong><span class="sync-next" id="sync-next">다음 동기화 예정: 확인 중</span>
         </div>
       </div>
     </div>
@@ -1849,7 +1849,8 @@ const state = {
   selectedGroup: "전체",
   query: "",
   source: "csv",
-  warning: ""
+  warning: "",
+  lastSyncedAt: ""
 };
 
 const els = {
@@ -1871,9 +1872,10 @@ const els = {
   dialogClose: document.querySelector("#dialog-close")
 };
 
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", async () => {
   bindEvents();
-  loadWorks(false);
+  await loadWorks(false);
+  startAutoUpdateCheck();
 });
 
 function bindEvents() {
@@ -1901,8 +1903,8 @@ function bindEvents() {
   window.addEventListener("popstate", applyUrlState);
 }
 
-async function loadWorks(forceRefresh) {
-  setLoading(true);
+async function loadWorks(forceRefresh, silent = false) {
+  if (!silent) setLoading(true);
 
   try {
     // GitHub Actions가 노션에서 만들어 둔 최신 JSON을 읽습니다.
@@ -1934,7 +1936,7 @@ async function loadWorks(forceRefresh) {
   applyUrlState();
   renderAll();
   await loadSyncStatus();
-  setLoading(false);
+  if (!silent) setLoading(false);
 }
 
 
@@ -1965,25 +1967,51 @@ async function loadSyncStatus() {
         minute: "2-digit"
       }).format(lastSynced)}`;
 
+    state.lastSyncedAt = payload.lastSyncedAt;
     syncNext.textContent =
-      `다음 동기화: ${formatNextSyncTime(new Date())} 전후`;
+      `다음 동기화 예정: ${formatNextSyncTime(new Date())} 전후`;
+
+    return payload.lastSyncedAt;
   } catch (error) {
     syncTime.textContent = "마지막 동기화: 확인 중";
     syncNext.textContent = "다음 동기화: 확인 중";
     console.error("Sync status load error:", error);
+    return "";
   }
+}
+
+function startAutoUpdateCheck() {
+  window.setInterval(async () => {
+    try {
+      const response = await fetch(`data/sync-status.json?t=${Date.now()}`, {
+        cache: "no-store"
+      });
+
+      if (!response.ok) return;
+
+      const payload = await response.json();
+      const latest = String(payload.lastSyncedAt || "");
+
+      if (latest && state.lastSyncedAt && latest !== state.lastSyncedAt) {
+        await loadWorks(true, true);
+      } else if (latest && !state.lastSyncedAt) {
+        state.lastSyncedAt = latest;
+        await loadSyncStatus();
+      }
+    } catch (error) {
+      console.error("Auto update check error:", error);
+    }
+  }, 60000);
 }
 
 function formatNextSyncTime(now) {
   const next = new Date(now);
-  const slots = [7, 22, 37, 52];
-  const currentMinute = next.getMinutes();
-  const nextMinute = slots.find((minute) => minute > currentMinute);
+  const nextMinute = Math.ceil((next.getMinutes() + 1) / 5) * 5;
 
-  if (nextMinute !== undefined) {
-    next.setMinutes(nextMinute, 0, 0);
+  if (nextMinute >= 60) {
+    next.setHours(next.getHours() + 1, 0, 0, 0);
   } else {
-    next.setHours(next.getHours() + 1, 7, 0, 0);
+    next.setMinutes(nextMinute, 0, 0);
   }
 
   return new Intl.DateTimeFormat("ko-KR", {
