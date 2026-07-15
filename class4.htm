@@ -645,6 +645,244 @@ a { color: inherit; }
   *, *::before, *::after { scroll-behavior: auto !important; transition: none !important; }
 }
 
+
+/* 조별 안내 화면: 상세페이지와 같은 카드형 분위기로 통일 */
+.hero {
+  min-height: 390px;
+  align-items: start;
+  background:
+    linear-gradient(90deg, rgba(7,61,38,.98) 0%, rgba(18,95,61,.94) 62%, rgba(18,95,61,.82) 100%),
+    radial-gradient(circle at 82% 8%, rgba(255,190,82,.26), transparent 26%);
+}
+.hero__backdrop::before {
+  width: 340px;
+  height: 340px;
+  right: -80px;
+  top: -150px;
+}
+.hero__backdrop::after {
+  width: 240px;
+  height: 240px;
+  right: 80px;
+  bottom: -170px;
+}
+.hero__content {
+  padding: 34px 0 38px;
+}
+.class-navigation {
+  margin-bottom: 26px;
+}
+.class-navigation__home {
+  min-height: 42px;
+  padding: 0 16px;
+  background: rgba(5,43,29,.34);
+}
+.hero__eyebrow {
+  margin-bottom: 10px;
+}
+.hero h1 {
+  max-width: none;
+}
+.hero__class-title {
+  font-size: clamp(2.5rem,5.4vw,4.6rem);
+}
+.hero__project-title {
+  margin-top: 4px;
+  font-size: clamp(2rem,4.5vw,3.8rem);
+}
+.hero__description {
+  max-width: 760px;
+  margin-top: 18px;
+  font-size: 1.04rem;
+  line-height: 1.7;
+}
+.hero__actions {
+  margin-top: 22px;
+}
+.status-card {
+  margin-top: 20px;
+  padding: 11px 14px;
+}
+
+.overview {
+  grid-template-columns: 1fr auto;
+  gap: 26px;
+  padding: 34px 0 28px;
+}
+.overview h2,
+.catalog h2 {
+  font-size: clamp(1.8rem,3.2vw,2.7rem);
+}
+.stats {
+  gap: 10px;
+}
+.stat {
+  min-width: 108px;
+  padding: 15px 16px;
+  border-top: 4px solid #1f7b4f;
+  border-radius: 14px;
+  background: #fff;
+  box-shadow: 0 7px 18px rgba(31,45,41,.07);
+}
+.stat:nth-child(2) {
+  border-top-color: #d58d00;
+}
+.stat:nth-child(3) {
+  border-top-color: #1c66c8;
+}
+.stat__number {
+  font-size: 1.7rem;
+}
+
+.catalog {
+  padding: 34px 0 80px;
+  border-top: 1px solid #e1ded5;
+  background: #f7f6f1;
+}
+.catalog__heading {
+  align-items: center;
+}
+.controls {
+  margin-top: 22px;
+}
+.search-box {
+  min-height: 50px;
+  border-radius: 13px;
+}
+.group-tabs {
+  margin-top: 16px;
+}
+.group-tab {
+  min-height: 40px;
+  border-radius: 10px;
+}
+.group-tab.is-active {
+  background: #0d6a45;
+}
+.card-grid {
+  grid-template-columns: repeat(3,minmax(0,1fr));
+  gap: 16px;
+  margin-top: 22px;
+}
+.game-card {
+  min-height: 330px;
+  padding: 20px;
+  border: 1px solid #deddd7;
+  border-top: 5px solid var(--card-line,#1f7b4f);
+  border-radius: 16px;
+  background: #fff;
+  box-shadow: 0 8px 22px rgba(31,45,41,.08);
+}
+.game-card:nth-child(4n+2) {
+  --card-line:#d58d00;
+}
+.game-card:nth-child(4n+3) {
+  --card-line:#1c66c8;
+}
+.game-card:nth-child(4n+4) {
+  --card-line:#7b2aa6;
+}
+.game-card:hover {
+  transform: translateY(-5px);
+  border-color: #c7d9d3;
+  box-shadow: 0 18px 38px rgba(31,45,41,.14);
+}
+.game-card::after {
+  width: 115px;
+  height: 115px;
+  right: -32px;
+  top: -38px;
+  opacity: .55;
+}
+.card-topline {
+  align-items: flex-start;
+}
+.game-card .group-badge {
+  min-height: 32px;
+  padding: 0 12px;
+  border-radius: 10px;
+  background: #0d6a45;
+}
+.game-card .genre-badge {
+  max-width: 62%;
+  min-height: 32px;
+  padding: 6px 10px;
+  border-radius: 10px;
+  white-space: normal;
+  line-height: 1.35;
+  text-align: right;
+}
+.game-card h3 {
+  margin: 24px 0 10px;
+  font-size: clamp(1.35rem,2vw,1.75rem);
+}
+.card-intro {
+  -webkit-line-clamp: 2;
+  line-height: 1.65;
+}
+.card-meta {
+  gap: 8px;
+  padding-top: 22px;
+}
+.card-meta__row {
+  grid-template-columns: 62px 1fr;
+  padding: 8px 10px;
+  border: 1px solid #eceae4;
+  border-radius: 10px;
+  background: #fafaf7;
+}
+.card-link {
+  margin-top: 18px;
+  padding-top: 14px;
+}
+
+@media (max-width:900px) {
+  .hero {
+    min-height: 380px;
+  }
+  .overview {
+    grid-template-columns: 1fr;
+  }
+  .card-grid {
+    grid-template-columns: repeat(2,minmax(0,1fr));
+  }
+}
+@media (max-width:620px) {
+  .hero {
+    min-height: 410px;
+  }
+  .hero__content {
+    padding: 24px 0 32px;
+  }
+  .hero__class-title {
+    font-size: clamp(2.4rem,13vw,3.7rem);
+  }
+  .hero__project-title {
+    font-size: clamp(1.85rem,9.2vw,2.8rem);
+  }
+  .hero__actions {
+    display: grid;
+  }
+  .overview {
+    padding: 28px 0 22px;
+  }
+  .stats {
+    gap: 7px;
+  }
+  .stat {
+    padding: 13px 8px;
+  }
+  .catalog {
+    padding: 28px 0 60px;
+  }
+  .card-grid {
+    grid-template-columns: 1fr;
+  }
+  .game-card {
+    min-height: 300px;
+  }
+}
+
 </style>
 </head>
 <body>
