@@ -334,6 +334,7 @@ a { color: inherit; }
 .detail-hero__badges {
   display: flex;
   flex-wrap: wrap;
+  align-items: flex-start;
   gap: 10px;
 }
 .detail-hero .group-badge {
@@ -343,13 +344,22 @@ a { color: inherit; }
   color: #ffe48f;
   background: rgba(0,74,43,.92);
   font-size: .92rem;
+  white-space: nowrap;
 }
 .detail-hero .genre-badge {
+  display: inline-flex;
+  align-items: center;
   min-height: 38px;
-  padding: 0 16px;
+  max-width: min(560px, 100%);
+  padding: 8px 16px;
+  border-radius: 18px;
   color: #fff4cb;
   background: #b43e28;
   font-size: .9rem;
+  line-height: 1.4;
+  white-space: normal;
+  word-break: keep-all;
+  overflow-wrap: anywhere;
 }
 .detail-hero h2 {
   margin: 20px 0 8px;
@@ -605,6 +615,10 @@ a { color: inherit; }
     margin-right:46px;
     padding:0 11px;
     font-size:.82rem;
+  }
+  .detail-hero .genre-badge {
+    max-width: 100%;
+    font-size: .86rem;
   }
   .detail-hero{
     min-height:330px;
