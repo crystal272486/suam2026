@@ -230,101 +230,369 @@ a { color: inherit; }
 .empty-state h3 { margin: 12px 0 4px; }
 .empty-state p { margin: 0; color: var(--muted); }
 
-.detail-dialog { width: min(940px, calc(100% - 28px)); max-height: min(90vh, 980px); padding: 0; overflow: hidden; border: 0; border-radius: 30px; background: transparent; box-shadow: 0 30px 90px rgba(0,0,0,.28); }
-.detail-dialog::backdrop { background: rgba(11,27,25,.72); backdrop-filter: blur(7px); }
-.detail-dialog__surface { position: relative; max-height: min(90vh,980px); overflow-y: auto; background: var(--surface); }
+.detail-dialog {
+  width: min(1320px, calc(100% - 24px));
+  max-height: 94vh;
+  padding: 0;
+  overflow: hidden;
+  border: 0;
+  border-radius: 24px;
+  background: transparent;
+  box-shadow: 0 30px 90px rgba(0,0,0,.30);
+}
+.detail-dialog::backdrop {
+  background: rgba(11,27,25,.74);
+  backdrop-filter: blur(7px);
+}
+.detail-dialog__surface {
+  position: relative;
+  max-height: 94vh;
+  overflow-y: auto;
+  background: #f7f6f1;
+}
 .dialog-close {
   position: sticky;
-  top: 18px;
-  z-index: 6;
+  top: 14px;
+  z-index: 20;
   float: right;
-  width: 46px;
-  height: 46px;
-  margin: 18px 18px -64px 0;
-  border: 1px solid rgba(255,255,255,.28);
+  width: 44px;
+  height: 44px;
+  margin: 14px 14px -58px 0;
+  border: 1px solid rgba(255,255,255,.42);
   border-radius: 50%;
   color: white;
-  background: rgba(13,47,42,.70);
+  background: rgba(10,45,36,.82);
   cursor: pointer;
-  font-size: 1.7rem;
+  font-size: 1.65rem;
   line-height: 1;
   backdrop-filter: blur(8px);
 }
-.detail-hero { padding: 54px 54px 40px; color: white; background: radial-gradient(circle at 85% 5%, rgba(255,182,87,.32), transparent 27%), linear-gradient(135deg,#17483f,#2d796a); }
-.detail-hero__badges { display: flex; flex-wrap: wrap; gap: 8px; }
-.detail-hero h2 { margin: 22px 0 10px; max-width: 760px; font-size: clamp(2.1rem,5vw,4.3rem); line-height: 1.04; letter-spacing: -.045em; }
-.detail-hero p { max-width: 720px; margin: 0; color: rgba(255,255,255,.78); font-size: 1.06rem; }
-.detail-main { padding: 42px 54px 54px; }
-.detail-summary { display: grid; grid-template-columns: repeat(4,minmax(0,1fr)); gap: 12px; margin-bottom: 34px; }
-.summary-chip { padding: 15px; border-radius: 15px; background: #f5f3ed; }
-.summary-chip span, .summary-chip strong { display: block; }
-.summary-chip span { color: var(--muted); font-size: .78rem; font-weight: 800; }
-.summary-chip strong { margin-top: 4px; overflow-wrap: anywhere; font-size: .94rem; }
-.detail-section { padding: 26px 0; border-top: 1px solid var(--line); }
-.detail-section h3 { margin: 0 0 14px; color: var(--brand-dark); font-size: 1.25rem; }
-.detail-section p { margin: 0; white-space: pre-line; }
-.detail-list { display: grid; gap: 11px; margin: 0; padding: 0; list-style: none; }
-.detail-list li { position: relative; padding: 13px 16px 13px 48px; border-radius: 13px; background: #f7f6f2; }
-.detail-list li::before { content: attr(data-number); position: absolute; left: 13px; top: 12px; display: grid; place-items: center; width: 25px; height: 25px; border-radius: 50%; color: white; background: var(--brand); font-size: .76rem; font-weight: 900; }
-.detail-grid { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 14px; }
-.detail-box { padding: 18px; border: 1px solid var(--line); border-radius: 15px; background: #fff; }
-.detail-box__label { display: block; margin-bottom: 7px; color: var(--muted); font-size: .8rem; font-weight: 900; }
-.notion-open { display: inline-flex; margin-top: 18px; color: var(--brand); font-weight: 900; }
-.footer { padding: 42px 0; color: rgba(255,255,255,.72); background: #102e2a; }
-.footer strong { color: white; }
-.footer p { margin: 5px 0 0; }
-
-@media (max-width: 900px) {
-  .overview { grid-template-columns: 1fr; align-items: start; }
-  .stats { width: 100%; }
-  .stat { flex: 1; min-width: 0; }
-  .card-grid { grid-template-columns: repeat(2,minmax(0,1fr)); }
-  .detail-summary { grid-template-columns: repeat(2,minmax(0,1fr)); }
+.detail-topnav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 18px 30px;
+  background: #ffffff;
+  border-bottom: 1px solid #e7e4dc;
 }
-@media (max-width: 620px) {
-  :root { --shell: min(100% - 24px, 1180px); }
-  .hero { min-height: 610px; }
-  .hero__content { padding: 70px 0 54px; }
-  .class-navigation {
-    align-items: flex-start;
-    margin-bottom: 30px;
+.detail-topnav a {
+  color: #174c3d;
+  font-weight: 900;
+  text-decoration: none;
+}
+.detail-topnav__class {
+  color: #26423a;
+  font-weight: 900;
+}
+.detail-hero {
+  position: relative;
+  min-height: 245px;
+  padding: 34px 44% 34px 42px;
+  overflow: hidden;
+  color: white;
+  background:
+    linear-gradient(90deg, rgba(4,49,30,.98) 0%, rgba(8,71,45,.94) 52%, rgba(8,71,45,.58) 100%),
+    radial-gradient(circle at 78% 20%, rgba(255,203,93,.28), transparent 34%),
+    linear-gradient(135deg,#073d26,#125f3d);
+}
+.detail-hero::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 48%;
+  height: 100%;
+  background:
+    linear-gradient(90deg, rgba(8,71,45,1) 0%, rgba(8,71,45,.08) 20%, rgba(8,71,45,0) 100%),
+    url("assets/cute-fantasy-hero.png") center right / cover no-repeat;
+}
+.detail-hero__content {
+  position: relative;
+  z-index: 2;
+}
+.detail-hero__badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.detail-hero .group-badge {
+  min-height: 38px;
+  padding: 0 16px;
+  border: 2px solid #e8bf58;
+  color: #ffe48f;
+  background: rgba(0,74,43,.92);
+  font-size: .92rem;
+}
+.detail-hero .genre-badge {
+  min-height: 38px;
+  padding: 0 16px;
+  color: #fff4cb;
+  background: #b43e28;
+  font-size: .9rem;
+}
+.detail-hero h2 {
+  margin: 20px 0 8px;
+  max-width: 620px;
+  font-size: clamp(2.5rem,5vw,5rem);
+  line-height: 1.02;
+  letter-spacing: -.055em;
+}
+.detail-hero p {
+  max-width: 620px;
+  margin: 0;
+  color: #ffd56f;
+  font-size: 1.06rem;
+  font-weight: 800;
+}
+.detail-main {
+  padding: 24px 28px 30px;
+  background: #f7f6f1;
+}
+.detail-summary {
+  display: grid;
+  grid-template-columns: repeat(4,minmax(0,1fr));
+  gap: 16px;
+  margin-bottom: 18px;
+}
+.summary-chip {
+  position: relative;
+  min-height: 92px;
+  padding: 18px 18px 16px 68px;
+  border: 1px solid #dfded8;
+  border-top: 4px solid var(--chip-accent,#1e7d54);
+  border-radius: 14px;
+  background: #fff;
+  box-shadow: 0 6px 16px rgba(31,45,41,.08);
+}
+.summary-chip::before {
+  content: attr(data-icon);
+  position: absolute;
+  left: 18px;
+  top: 21px;
+  display: grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 12px;
+  color: white;
+  background: var(--chip-accent,#1e7d54);
+  font-size: 1.2rem;
+}
+.summary-chip:nth-child(2){--chip-accent:#d58d00}
+.summary-chip:nth-child(3){--chip-accent:#1c66c8}
+.summary-chip:nth-child(4){--chip-accent:#7b2aa6}
+.summary-chip span,.summary-chip strong{display:block}
+.summary-chip span {
+  color: #4f695f;
+  font-size: .78rem;
+  font-weight: 900;
+}
+.summary-chip strong {
+  margin-top: 4px;
+  color: #142820;
+  overflow-wrap: anywhere;
+  font-size: .96rem;
+}
+.detail-board {
+  display: grid;
+  grid-template-columns: repeat(2,minmax(0,1fr));
+  gap: 16px;
+}
+.detail-section {
+  --section-accent:#1f7b4f;
+  padding: 18px 18px 16px;
+  border: 1px solid #dfded8;
+  border-left: 6px solid var(--section-accent);
+  border-radius: 14px;
+  background: #fff;
+  box-shadow: 0 6px 16px rgba(31,45,41,.07);
+}
+.detail-section[data-kind="story"]{--section-accent:#18774a}
+.detail-section[data-kind="steps"]{--section-accent:#1766c5}
+.detail-section[data-kind="rules"]{--section-accent:#7d2ca2}
+.detail-section[data-kind="characters"]{--section-accent:#258256}
+.detail-section[data-kind="challenge"]{--section-accent:#cf8b00}
+.detail-section[data-kind="reason"]{--section-accent:#178c91}
+.detail-section h3 {
+  display:flex;
+  align-items:center;
+  gap:10px;
+  margin:0 0 14px;
+  color:#1d2925;
+  font-size:1.25rem;
+}
+.detail-section h3::before {
+  content: attr(data-icon);
+  font-size:1.25rem;
+}
+.detail-grid {
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:10px;
+}
+.detail-box {
+  padding:12px 14px;
+  border:1px solid color-mix(in srgb,var(--section-accent) 22%,#e8e7e2);
+  border-radius:10px;
+  background:color-mix(in srgb,var(--section-accent) 6%,#fff);
+}
+.detail-box__label {
+  display:inline-block;
+  margin-bottom:6px;
+  color:var(--section-accent);
+  font-size:.8rem;
+  font-weight:900;
+}
+.detail-box p {
+  margin:0;
+  color:#27322f;
+  line-height:1.65;
+  white-space:pre-line;
+}
+.detail-list {
+  display:grid;
+  gap:8px;
+  margin:0;
+  padding:0;
+  list-style:none;
+}
+.detail-list li {
+  position:relative;
+  padding:11px 14px 11px 48px;
+  border:1px solid color-mix(in srgb,var(--section-accent) 23%,#e7e6e1);
+  border-radius:10px;
+  background:color-mix(in srgb,var(--section-accent) 5%,#fff);
+  line-height:1.6;
+}
+.detail-list li::before {
+  content:attr(data-number);
+  position:absolute;
+  left:11px;
+  top:9px;
+  display:grid;
+  place-items:center;
+  width:28px;
+  height:28px;
+  border-radius:50%;
+  color:white;
+  background:var(--section-accent);
+  font-weight:900;
+}
+.character-grid {
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:10px;
+}
+.character-card {
+  position:relative;
+  min-height:110px;
+  padding:14px 14px 14px 78px;
+  border:1px solid #dfe8e3;
+  border-radius:12px;
+  background:linear-gradient(180deg,#fff,#f6fbf8);
+}
+.character-card::before {
+  content:attr(data-avatar);
+  position:absolute;
+  left:14px;
+  top:18px;
+  display:grid;
+  place-items:center;
+  width:50px;
+  height:50px;
+  border-radius:15px;
+  background:linear-gradient(135deg,#dff5e7,#fff0c8);
+  font-size:2rem;
+}
+.character-card__label {
+  display:inline-block;
+  margin-bottom:7px;
+  padding:3px 9px;
+  border-radius:999px;
+  color:white;
+  background:#1f7b4f;
+  font-size:.72rem;
+  font-weight:900;
+}
+.character-card p {
+  margin:0;
+  color:#293532;
+  line-height:1.55;
+  white-space:pre-line;
+}
+.reason-text {
+  position:relative;
+  min-height:110px;
+  padding-right:84px;
+  color:#26322f;
+  line-height:1.75;
+  white-space:pre-line;
+}
+.reason-text::after {
+  content:"💗";
+  position:absolute;
+  right:16px;
+  bottom:4px;
+  font-size:3.2rem;
+}
+.detail-actions {
+  display:flex;
+  justify-content:center;
+  gap:12px;
+  margin-top:18px;
+}
+.detail-action {
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  min-height:44px;
+  padding:0 20px;
+  border:1px solid #b8cfc4;
+  border-radius:10px;
+  color:#15563c;
+  background:white;
+  font-weight:900;
+  text-decoration:none;
+}
+.detail-action--primary {
+  min-width:230px;
+  color:white;
+  border-color:#0b5c36;
+  background:#0b5c36;
+}
+@media (max-width:900px){
+  .detail-hero{
+    min-height:230px;
+    padding-right:38%;
   }
-  .class-navigation__home {
-    min-height: 43px;
-    padding: 0 14px;
-    font-size: .9rem;
+  .detail-hero::after{width:43%}
+  .detail-summary{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .detail-board{grid-template-columns:1fr}
+}
+@media (max-width:620px){
+  .detail-dialog{width:100%;max-height:100dvh;border-radius:0}
+  .detail-dialog__surface{max-height:100dvh}
+  .detail-topnav{padding:14px 16px}
+  .detail-hero{
+    min-height:330px;
+    padding:28px 20px 155px;
   }
-  .class-navigation__current {
-    display: none;
+  .detail-hero::after{
+    top:auto;
+    bottom:0;
+    width:100%;
+    height:155px;
+    background:
+      linear-gradient(180deg,rgba(8,71,45,1) 0%,rgba(8,71,45,.05) 18%,rgba(8,71,45,0) 100%),
+      url("assets/cute-fantasy-hero.png") center right/cover no-repeat;
   }
-  .hero__class-title {
-    font-size: clamp(2.8rem, 14vw, 4.2rem);
-  }
-  .hero__project-title {
-    margin-top: 8px;
-    font-size: clamp(2rem, 9.7vw, 3rem);
-    letter-spacing: -.065em;
-  }
-  .hero__description { margin-top: 24px; }
-  .hero__actions { display: grid; }
-  .button { width: 100%; }
-  .status-card { width: 100%; }
-  .overview { padding: 58px 0 46px; }
-  .stats { gap: 8px; }
-  .stat { padding: 15px 10px; text-align: center; }
-  .stat__number { font-size: 1.65rem; }
-  .catalog { padding: 58px 0 72px; }
-  .catalog__heading { display: block; }
-  .result-count { margin-top: 10px; }
-  .controls { display: grid; }
-  .card-grid { grid-template-columns: 1fr; }
-  .game-card { min-height: 350px; border-radius: 22px; }
-  .detail-dialog { width: 100%; max-height: 100dvh; border-radius: 0; }
-  .detail-dialog__surface { max-height: 100dvh; }
-  .detail-hero { padding: 62px 22px 30px; }
-  .detail-main { padding: 30px 22px 40px; }
-  .detail-summary, .detail-grid { grid-template-columns: 1fr; }
-  .dialog-close { top: 10px; margin: 10px 10px -56px 0; }
+  .detail-hero h2{font-size:clamp(2.35rem,12vw,3.5rem)}
+  .detail-main{padding:18px 14px 26px}
+  .detail-summary{grid-template-columns:1fr}
+  .detail-grid,.character-grid{grid-template-columns:1fr}
+  .detail-actions{display:grid}
+  .detail-action,.detail-action--primary{width:100%;min-width:0}
 }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
@@ -1426,65 +1694,73 @@ function createDetail(work) {
   const storySections = [
     ["게임 목표", firstValue(work["게임 목표(기타)"], work["게임 목표(선택)"], work["최종 목표"])],
     ["배경 이야기", work["배경 이야기"]],
-    ["최종 목표", work["최종 목표"]],
-    ["승리 조건", work["승리 조건(설명)"]],
-    ["피하거나 이기는 방법", work["피하거나 이기는 방법"]],
+    ["승리 조건", firstValue(work["승리 조건(설명)"], work["최종 목표"])],
     ["엔딩", work["엔딩 내용"]]
   ].filter(([, value]) => hasValue(value));
 
   const challengeSections = [
     ["악당·함정", work["악당/함정 이름·종류"]],
     ["방해 내용", work["악당/함정 방해 내용"]],
-    ["특별 아이템·규칙", work["특별 아이템/규칙"]],
     ["재미 요소", joinValues(work["재미 요소(선택)"], work["재미 요소(자세히)"])],
-    ["점수 획득 방식", work["점수 획득 방식(선택)"]],
-    ["점수 계산 방법", work["점수 계산 방법(설명)"]]
+    ["점수 계산", firstValue(work["점수 계산 방법(설명)"], work["점수 획득 방식(선택)"])],
+    ["특별 아이템·규칙", work["특별 아이템/규칙"]]
   ].filter(([, value]) => hasValue(value));
 
   return `
+    <div class="detail-topnav">
+      <a href="index.htm">← 6학년 전체로 돌아가기</a>
+      <span class="detail-topnav__class">6학년 ${escapeHtml(work.반 || "")}</span>
+    </div>
+
     <div class="detail-hero">
-      <div class="detail-hero__badges">
-        <span class="group-badge">${escapeHtml(work.조 || "조 미정")}</span>
-        <span class="genre-badge">${escapeHtml(work["게임 장르"] || "장르 미정")}</span>
+      <div class="detail-hero__content">
+        <div class="detail-hero__badges">
+          <span class="group-badge">${escapeHtml(work.조 || "조 미정")}</span>
+          <span class="genre-badge">${escapeHtml(work["게임 장르"] || "장르 미정")}</span>
+        </div>
+        <h2>${escapeHtml(work["게임 이름"] || "이름 없는 작품")}</h2>
+        <p>${escapeHtml(firstValue(
+          work["한 줄 소개"],
+          work["배경 이야기"],
+          "노션과 자동 연동된 학생 작품 상세 페이지"
+        ))}</p>
       </div>
-      <h2>${escapeHtml(work["게임 이름"] || "이름 없는 작품")}</h2>
-      <p>${escapeHtml(firstValue(
-        work["한 줄 소개"],
-        work["배경 이야기"],
-        "친구들이 만든 창의적인 게임 작품입니다."
-      ))}</p>
     </div>
 
     <div class="detail-main">
       <div class="detail-summary">
-        ${summaryChip("팀 이름", work["팀 이름"] || "미정")}
-        ${summaryChip("팀 구성원", work["팀 구성원"] || "미입력")}
-        ${summaryChip("대상 연령", work["대상 연령"] || "미입력")}
-        ${summaryChip("게임 시간", formatMinutes(work["게임 시간(분)"]))}
+        ${summaryChip("팀 이름", work["팀 이름"] || "미정", "👥")}
+        ${summaryChip("팀 구성원", work["팀 구성원"] || "미입력", "🧑‍🤝‍🧑")}
+        ${summaryChip("대상 연령", work["대상 연령"] || "미입력", "🎒")}
+        ${summaryChip("게임 시간", formatMinutes(work["게임 시간(분)"]), "🕒")}
       </div>
 
-      ${renderBoxSection("작품 이야기", storySections)}
-      ${renderNumberedSection("게임 방법", steps)}
-      ${renderNumberedSection("게임 규칙", rules)}
-      ${renderBoxSection("캐릭터", characters)}
-      ${renderBoxSection("도전과 재미 요소", challengeSections)}
-      ${renderReasonSection(work)}
+      <div class="detail-board">
+        ${renderBoxSection("작품 이야기", storySections, "story", "📖")}
+        ${renderNumberedSection("게임 방법", steps, "steps", "🎮")}
+        ${renderNumberedSection("게임 규칙", rules, "rules", "⚖️")}
+        ${renderCharacterSection(characters)}
+        ${renderBoxSection("도전과 재미 요소", challengeSections, "challenge", "⭐")}
+        ${renderReasonSection(work)}
+      </div>
 
-      ${work._notionUrl ? `
-        <a class="notion-open" href="${escapeAttr(work._notionUrl)}" target="_blank" rel="noopener noreferrer">
-          노션 원본 페이지 열기 →
-        </a>
-      ` : ""}
+      <div class="detail-actions">
+        <button class="detail-action" type="button" onclick="document.querySelector('#detail-dialog').close();document.body.style.overflow=''">← 목록으로 돌아가기</button>
+        ${work._notionUrl ? `
+          <a class="detail-action detail-action--primary" href="${escapeAttr(work._notionUrl)}" target="_blank" rel="noopener noreferrer">
+            📄 노션 원본 보기 →
+          </a>
+        ` : ""}
+      </div>
     </div>
   `;
 }
 
-function renderBoxSection(title, entries) {
+function renderBoxSection(title, entries, kind, icon) {
   if (!entries.length) return "";
-
   return `
-    <section class="detail-section">
-      <h3>${escapeHtml(title)}</h3>
+    <section class="detail-section" data-kind="${escapeAttr(kind)}">
+      <h3 data-icon="${escapeAttr(icon)}">${escapeHtml(title)}</h3>
       <div class="detail-grid">
         ${entries.map(([label, value]) => `
           <div class="detail-box">
@@ -1497,17 +1773,34 @@ function renderBoxSection(title, entries) {
   `;
 }
 
-function renderNumberedSection(title, items) {
+function renderNumberedSection(title, items, kind, icon) {
   if (!items.length) return "";
-
   return `
-    <section class="detail-section">
-      <h3>${escapeHtml(title)}</h3>
+    <section class="detail-section" data-kind="${escapeAttr(kind)}">
+      <h3 data-icon="${escapeAttr(icon)}">${escapeHtml(title)}</h3>
       <ol class="detail-list">
         ${items.map((item, index) => `
           <li data-number="${index + 1}">${escapeHtml(String(item))}</li>
         `).join("")}
       </ol>
+    </section>
+  `;
+}
+
+function renderCharacterSection(entries) {
+  if (!entries.length) return "";
+  const avatars = ["🗡️", "🧙‍♀️", "🤖", "🍄"];
+  return `
+    <section class="detail-section" data-kind="characters">
+      <h3 data-icon="🧑‍🚀">캐릭터</h3>
+      <div class="character-grid">
+        ${entries.map(([label, value], index) => `
+          <div class="character-card" data-avatar="${avatars[index % avatars.length]}">
+            <span class="character-card__label">${escapeHtml(label)}</span>
+            <p>${escapeHtml(String(value))}</p>
+          </div>
+        `).join("")}
+      </div>
     </section>
   `;
 }
@@ -1518,20 +1811,18 @@ function renderReasonSection(work) {
     work["만든 이유(기타)"],
     work["만든 이유(자세히)"]
   );
-
   if (!hasValue(reason)) return "";
-
   return `
-    <section class="detail-section">
-      <h3>이 작품을 만든 이유</h3>
-      <p>${escapeHtml(reason)}</p>
+    <section class="detail-section" data-kind="reason">
+      <h3 data-icon="💚">이 작품을 만든 이유</h3>
+      <div class="reason-text">${escapeHtml(reason)}</div>
     </section>
   `;
 }
 
-function summaryChip(label, value) {
+function summaryChip(label, value, icon) {
   return `
-    <div class="summary-chip">
+    <div class="summary-chip" data-icon="${escapeAttr(icon)}">
       <span>${escapeHtml(label)}</span>
       <strong>${escapeHtml(String(value))}</strong>
     </div>
