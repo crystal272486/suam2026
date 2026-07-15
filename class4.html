@@ -883,6 +883,50 @@ a { color: inherit; }
   }
 }
 
+
+/* 상단 상태카드를 오른쪽으로 배치해 세로 공간 절약 */
+.hero__content {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  grid-template-areas:
+    "nav nav"
+    "eyebrow status"
+    "title status"
+    "description status"
+    "actions status";
+  column-gap: 34px;
+  align-items: start;
+}
+.class-navigation { grid-area: nav; }
+.hero__eyebrow { grid-area: eyebrow; }
+.hero h1 { grid-area: title; }
+.hero__description { grid-area: description; }
+.hero__actions { grid-area: actions; }
+.status-card {
+  grid-area: status;
+  align-self: end;
+  margin-top: 0;
+  min-width: 295px;
+  max-width: 340px;
+}
+@media (max-width: 900px) {
+  .hero__content {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "nav"
+      "eyebrow"
+      "title"
+      "description"
+      "actions"
+      "status";
+  }
+  .status-card {
+    min-width: 0;
+    max-width: 100%;
+    margin-top: 18px;
+  }
+}
+
 </style>
 </head>
 <body>
