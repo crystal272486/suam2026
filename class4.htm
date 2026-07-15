@@ -996,6 +996,48 @@ a { color: inherit; }
   }
 }
 
+
+/* 조별 카드의 여러 장르를 각각 작은 태그로 표시 */
+.card-topline {
+  align-items: flex-start;
+}
+.genre-list {
+  display: flex;
+  flex: 1;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 6px;
+  min-width: 0;
+}
+.game-card .genre-badge {
+  width: auto;
+  max-width: 100%;
+  min-height: 30px;
+  padding: 5px 10px;
+  border: 1px solid rgba(205,139,32,.16);
+  border-radius: 10px;
+  overflow: visible;
+  color: #805919;
+  background: #fff2dc;
+  line-height: 1.25;
+  text-align: center;
+  text-overflow: clip;
+  white-space: normal;
+  word-break: keep-all;
+}
+@media (max-width: 620px) {
+  .card-topline {
+    gap: 9px;
+  }
+  .genre-list {
+    gap: 5px;
+  }
+  .game-card .genre-badge {
+    padding: 5px 8px;
+    font-size: .72rem;
+  }
+}
+
 </style>
 </head>
 <body>
@@ -1356,6 +1398,21 @@ function renderCards() {
   });
 }
 
+
+function renderGenreChips(value) {
+  const raw = String(value || "장르 미정").trim();
+  const genres = raw
+    .split(/[,，;；\n|]+/)
+    .map(item => item.trim())
+    .filter(Boolean);
+
+  const uniqueGenres = [...new Set(genres.length ? genres : ["장르 미정"])];
+
+  return uniqueGenres
+    .map(genre => `<span class="genre-badge">${escapeHtml(genre)}</span>`)
+    .join("");
+}
+
 function createCard(work, index) {
   const accents = ["#dceef1", "#f9dfbc", "#dfe9d5", "#eadff2", "#f3d9d6"];
   const accent = accents[index % accents.length];
@@ -1371,7 +1428,7 @@ function createCard(work, index) {
     >
       <div class="card-topline">
         <span class="group-badge">${escapeHtml(work.조 || "조 미정")}</span>
-        <span class="genre-badge">${escapeHtml(work["게임 장르"] || "장르 미정")}</span>
+        <span class="genre-list">${renderGenreChips(work["게임 장르"])}</span>
       </div>
 
       <h3>${escapeHtml(work["게임 이름"] || "이름 없는 작품")}</h3>
