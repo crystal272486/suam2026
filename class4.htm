@@ -305,7 +305,7 @@ a { color: inherit; }
   height: 100%;
   background:
     linear-gradient(90deg, rgba(8,71,45,1) 0%, rgba(8,71,45,.08) 20%, rgba(8,71,45,0) 100%),
-    url("assets/cute-fantasy-hero.png") center right / cover no-repeat;
+    url("assets/maple-fantasy-hero-v2.png") center right / cover no-repeat;
 }
 .detail-hero__content {
   position: relative;
@@ -585,7 +585,7 @@ a { color: inherit; }
     height:155px;
     background:
       linear-gradient(180deg,rgba(8,71,45,1) 0%,rgba(8,71,45,.05) 18%,rgba(8,71,45,0) 100%),
-      url("assets/cute-fantasy-hero.png") center right/cover no-repeat;
+      url("assets/maple-fantasy-hero-v2.png") center right/cover no-repeat;
   }
   .detail-hero h2{font-size:clamp(2.35rem,12vw,3.5rem)}
   .detail-main{padding:18px 14px 26px}
@@ -1008,7 +1008,7 @@ function createDetail(work) {
   return `
     <div class="detail-topnav">
       <a href="index.htm">← 6학년 전체로 돌아가기</a>
-      <span class="detail-topnav__class">6학년 ${escapeHtml(work.반 || "")}</span>
+      <span class="detail-topnav__class">6학년 4반</span>
     </div>
 
     <div class="detail-hero">
@@ -1044,7 +1044,7 @@ function createDetail(work) {
       </div>
 
       <div class="detail-actions">
-        <button class="detail-action" type="button" onclick="document.querySelector('#detail-dialog').close();document.body.style.overflow=''">← 목록으로 돌아가기</button>
+        <button class="detail-action" type="button" onclick="closeDialog()">✕ 닫기</button>
         ${work._notionUrl ? `
           <a class="detail-action detail-action--primary" href="${escapeAttr(work._notionUrl)}" target="_blank" rel="noopener noreferrer">
             📄 노션 원본 보기 →
